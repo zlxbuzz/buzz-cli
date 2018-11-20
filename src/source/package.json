@@ -1,0 +1,15 @@
+{
+  "name": "<%= name %>",
+  "version": "<%= version %>",
+  "scripts": {
+    "start": "buzz dev",
+    "build": "buzz build"
+  },
+  "postcss": {
+    "plugins": {
+      "autoprefixer": {}
+    }
+  },
+  "author": "<%= author %>",
+  "license": "MIT"
+}

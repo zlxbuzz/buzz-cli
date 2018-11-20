@@ -1,5 +1,4 @@
-## git ignore
-
+lib
 ## rigger ignore
  .rigger.dat
  rigger.log

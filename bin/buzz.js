@@ -1,10 +1,9 @@
 #!/usr/bin/env node
-const { join } = require('path')
-
-require('yargs')
-  .version('1.0.1')
-  .usage('$0 <cmd>')
-  .commandDir(join(__dirname, '../lib', 'commands'))
+const { join } = require("path");
+const { version } = require("../package.json");
+require("yargs")
+  .version(version)
+  .usage("$0 <cmd>")
+  .commandDir(join(__dirname, "../lib", "commands"))
   .demandCommand()
-  .help()
-  .argv
+  .help().argv;

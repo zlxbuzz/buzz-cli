@@ -1,21 +1,44 @@
-# buzz-cli 第一个版本
+# buzz-cli vue+webpack4 的脚手架工具
 
-> 基于Vue + Webpack cli 工具
+> 基于 Vue + Webpack 工具
 
+## 安装
 
-## Development
-
-> Please make sure your version of Node.js is greater than 8.
-
-``` bash
+```bash
+# 全局安装(也可以局部安装)
 npm i buzz-cli -g
-buzz init [name] # 初始化项目
-buzz dev # 开发
-buzz build # 打包构建
+# 初始化项目
+mkdir demo && cd demo && buzz init
+# 开发
+npm start
+# 构建
+npm build
 ```
 
-## todo
+## 配置
 
-- 支持配置文件载入第三方依赖
-- eslint支持
-- 多入口支持
+```bash
+# 默认配置，可以通过buzz.config.js来覆盖
+module.exports = {
+  //入口
+  entryPath: "src/index.js",
+  //输出目录
+  outputDir: "dist",
+  //静态资源目录
+  assetsDir: "assets",
+  //入口 html
+  indexPath: "index.html",
+  //公共 public
+  publicPath: "/",
+  externals: {},
+  dev: {
+    //常用的环境变量
+    env: {},
+    //代理
+    proxyTable: {}
+  },
+  build: {
+    env: {}
+  }
+}
+```
