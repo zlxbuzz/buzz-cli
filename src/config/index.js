@@ -11,7 +11,6 @@ import OptimizeCSSAssetsPlugin from "optimize-css-assets-webpack-plugin";
 
 import VueLoaderPlugin from "vue-loader/lib/plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import postcssPresetEnv from "postcss-preset-env";
 import HtmlWebpackPlugin from "html-webpack-plugin";
 
 import { getFiles } from "../utils/extra";
@@ -54,9 +53,13 @@ export const getConfig = opt => {
     resolve: {
       modules: [appDir("node_modules"), cliDir("node_modules")],
       extensions: ["*", ".js", ".vue", ".json"],
-      alias: {
-        vue$: "vue/dist/vue.esm.js"
-      }
+      alias: Object.assign(
+        {},
+        {
+          vue$: "vue/dist/vue.esm.js"
+        },
+        opt.alias
+      )
     },
     output: {
       path: appDir(opt.outputDir),
@@ -102,8 +105,19 @@ export const getConfig = opt => {
           test: /\.vue$/,
           use: {
             loader: "vue-loader"
-          },
-          exclude: /node_modules/
+          }
+        },
+        {
+          test: /\.html$/,
+          use: {
+            loader: "html-loader"
+          }
+        },
+        {
+          test: /\.hbs$/,
+          use: {
+            loader: "handlebars-loader"
+          }
         },
         {
           test: /\.css$/,
@@ -112,9 +126,7 @@ export const getConfig = opt => {
             "css-loader",
             {
               loader: "postcss-loader",
-              options: {
-                plugins: () => [postcssPresetEnv(postcssConfig)]
-              }
+              options: postcssConfig(opt)
             }
           ]
         },
@@ -125,9 +137,7 @@ export const getConfig = opt => {
             "css-loader",
             {
               loader: "postcss-loader",
-              options: {
-                plugins: () => [postcssPresetEnv(postcssConfig)]
-              }
+              options: postcssConfig(opt)
             },
             "less-loader"
           ]
@@ -164,6 +174,7 @@ export const getConfig = opt => {
       }),
       new VueLoaderPlugin(), //将其他规则应用到vue
       new HtmlWebpackPlugin({
+        filename: opt.indexName,
         template: fse.existsSync(appDir(opt.indexPath))
           ? appDir(opt.indexPath)
           : cliDir("lib/source/index.html")
