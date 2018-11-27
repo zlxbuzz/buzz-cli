@@ -35,7 +35,6 @@ export const handler = async () => {
       };
       const WebpackConfig = getConfig(opt);
       WebpackDevServer.addDevServerEntrypoints(WebpackConfig, devOptions);
-      console.log(WebpackConfig);
 
       const compiler = Webpack(WebpackConfig);
 
