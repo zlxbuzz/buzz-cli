@@ -26,7 +26,7 @@ const devPlugins = opt => {
 };
 const proPlugins = opt => {
   return [
-    new CleanWebpackPlugin([opt.outputDir], {
+    new CleanWebpackPlugin(opt.build.cleanPath.length ? opt.build.cleanPath : [opt.outputDir], {
       root: appDir(),
       verbose: false
     }),

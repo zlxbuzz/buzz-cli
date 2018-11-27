@@ -30,7 +30,9 @@ module.exports = {
     proxyTable: {}
   },
   build: {
-    env: {}
+    env: {},
+    //clean配置
+    cleanPath:[]
   },
   // whether to use eslint-loader
   lintOnSave: true

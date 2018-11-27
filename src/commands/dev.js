@@ -16,10 +16,10 @@ export const desc = "-- start dev ";
 export const handler = async () => {
   let freePort;
   let urls;
+  const opt = Object.assign(getUserConfig(), defaults, { mode: "development" });
   //启动webpack
   await spinner("start webpack", async spinner => {
     return new Promise(async resolve => {
-      const opt = Object.assign(getUserConfig(), defaults, { mode: "development" });
       const devOptions = {
         overlay: true, //错误展示在浏览器
         hot: true,
@@ -35,6 +35,7 @@ export const handler = async () => {
       };
       const WebpackConfig = getConfig(opt);
       WebpackDevServer.addDevServerEntrypoints(WebpackConfig, devOptions);
+      console.log(WebpackConfig);
 
       const compiler = Webpack(WebpackConfig);
 
@@ -53,8 +54,8 @@ export const handler = async () => {
   await spinner(
     [
       `app running at:`,
-      ` - local:   ${chalk.cyan(urls.localUrlForTerminal)}`,
-      ` - network: ${chalk.cyan(urls.lanUrlForTerminal)}`
+      ` - local:   ${chalk.cyan(urls.localUrlForTerminal)}${opt.indexName}`,
+      ` - network: ${chalk.cyan(urls.lanUrlForTerminal)}${opt.indexName}`
     ].join("\n"),
     async () => {}
   );
