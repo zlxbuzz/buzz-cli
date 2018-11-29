@@ -174,6 +174,7 @@ export const getConfig = opt => {
       }),
       new VueLoaderPlugin(), //将其他规则应用到vue
       new HtmlWebpackPlugin({
+        ...opt.htmlOptions,
         filename: opt.indexName,
         template: fse.existsSync(appDir(opt.indexPath))
           ? appDir(opt.indexPath)
