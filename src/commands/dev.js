@@ -9,14 +9,13 @@ import prepareURLs from "../utils/prepareURLs";
 
 import { getConfig } from "../config";
 import { getUserConfig } from "../utils/extra";
-import defaults from "../source/options";
 
 export const command = "dev";
 export const desc = "-- start dev ";
 export const handler = async () => {
   let freePort;
   let urls;
-  const opt = Object.assign(getUserConfig(), defaults, { mode: "development" });
+  const opt = Object.assign(getUserConfig(), { mode: "development" });
   //启动webpack
   await spinner("start webpack", async spinner => {
     return new Promise(async resolve => {

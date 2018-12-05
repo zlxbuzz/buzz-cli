@@ -4,7 +4,7 @@
   </div>
 </template>
 <style lang="less" scoped>
-  div {
-    display: flex;
-  }
+div {
+  display: flex;
+}
 </style>

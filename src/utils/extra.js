@@ -3,12 +3,11 @@ import fs from "fs";
 import log from "./log";
 export const getUserConfig = () => {
   let fileConfig;
-  const defaultConfig = require(path.resolve(__dirname, "..", "source", "options.js"));
   const configPath = path.resolve(process.cwd(), "buzz.config.js");
   if (fs.existsSync(configPath)) {
     fileConfig = require(configPath);
   }
-  return Object.assign(defaultConfig, fileConfig);
+  return Object.assign({}, fileConfig);
 };
 export const getFiles = (mode, assets) => {
   const isProduction = mode === "production";

@@ -1,4 +1,3 @@
-// import options from "./options";
 import path from "path";
 import webpack from "webpack";
 import babelConfig from "./webpack/babel-config";
@@ -26,10 +25,13 @@ const devPlugins = opt => {
 };
 const proPlugins = opt => {
   return [
-    new CleanWebpackPlugin(opt.build.cleanPath.length ? opt.build.cleanPath : [opt.outputDir], {
-      root: appDir(),
-      verbose: false
-    }),
+    new CleanWebpackPlugin(
+      opt.build.cleanPath && opt.build.cleanPath.length ? opt.build.cleanPath : [opt.outputDir],
+      {
+        root: appDir(),
+        verbose: false
+      }
+    ),
     // keep chunk ids stable so async chunks have consistent hash (#1916)
     new webpack.NamedChunksPlugin(chunk => {
       if (chunk.name) {
@@ -44,10 +46,43 @@ const proPlugins = opt => {
 };
 
 export const getConfig = opt => {
+  /*set entry && html*/
+  let entry = opt.entryPath;
+  let html = [];
+  if (typeof entry === "string") {
+    entry = { main: appDir(opt.entryPath) };
+    html.push(
+      new HtmlWebpackPlugin({
+        ...opt.htmlOptions,
+        filename: opt.indexName,
+        template: fse.existsSync(appDir(opt.indexPath))
+          ? appDir(opt.indexPath)
+          : cliDir("lib/source/index.html")
+      })
+    );
+  } else {
+    //object
+    entry = Object.assign({}, entry);
+    for (const name of Object.keys(entry)) {
+      entry[name] = appDir(entry[name]);
+      html.push(
+        new HtmlWebpackPlugin({
+          ...opt.htmlOptions,
+          filename: `${name}/${opt.indexName}`,
+          chunks: ["vendors", "common", name].concat(
+            opt.mode === "development" ? [] : [`runtime~${name}`]
+          ),
+          template: fse.existsSync(appDir(opt.indexPath))
+            ? appDir(opt.indexPath)
+            : cliDir("lib/source/index.html")
+        })
+      );
+    }
+  }
   const files = getFiles(opt.mode, opt.assetsDir);
   const config = {
     mode: opt.mode,
-    entry: { main: appDir(opt.entryPath) },
+    entry,
 
     devtool: opt.mode === "development" ? "source-map" : false,
     resolve: {
@@ -87,7 +122,20 @@ export const getConfig = opt => {
       moduleIds: "hashed", //和namedModules类似，默认module都有自增的id，改成hash形式,lib/WebpackOptionsApply.js
       //分割chunks
       splitChunks: {
-        chunks: "all" //默认只会分割异步加载async的chunk,可以采用分割所有chunk，默认会将node_modules的依赖分割。
+        chunks: "all", //默认只会分割异步加载async的chunk,可以采用分割所有chunk，默认会将node_modules的依赖分割。
+        cacheGroups: {
+          vendors: {
+            name: `vendors`,
+            test: /[\\/]node_modules[\\/]/,
+            chunks: "initial"
+          },
+          common: {
+            name: `common`,
+            minChunks: 2,
+            chunks: "initial",
+            reuseExistingChunk: true
+          }
+        }
       },
       runtimeChunk: opt.mode === "development" ? false : true
     },
@@ -166,21 +214,29 @@ export const getConfig = opt => {
             }
           ]
         }
-      ]
+      ].concat(
+        opt.lint
+          ? [
+              {
+                enforce: "pre",
+                test: /\.(js|vue)$/,
+                exclude: /node_modules/,
+                use: {
+                  loader: "eslint-loader"
+                }
+              }
+            ]
+          : []
+      )
     },
     plugins: [
       new MiniCssExtractPlugin({
         filename: files.css
       }),
-      new VueLoaderPlugin(), //将其他规则应用到vue
-      new HtmlWebpackPlugin({
-        ...opt.htmlOptions,
-        filename: opt.indexName,
-        template: fse.existsSync(appDir(opt.indexPath))
-          ? appDir(opt.indexPath)
-          : cliDir("lib/source/index.html")
-      })
-    ].concat(opt.mode === "development" ? devPlugins(opt) : proPlugins(opt))
+      new VueLoaderPlugin() //将其他规则应用到vue
+    ]
+      .concat(opt.mode === "development" ? devPlugins(opt) : proPlugins(opt))
+      .concat(html)
   };
   return config;
 };
