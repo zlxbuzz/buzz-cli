@@ -6,6 +6,8 @@ export const getUserConfig = () => {
   const configPath = path.resolve(process.cwd(), "buzz.config.js");
   if (fs.existsSync(configPath)) {
     fileConfig = require(configPath);
+  } else {
+    fileConfig = require(path.resolve(__dirname, "..", "internal", "config", "buzz"));
   }
   return Object.assign({}, fileConfig);
 };

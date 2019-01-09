@@ -1,13 +1,13 @@
 {
   "name": "buzz-cli",
-  "version": "3.0.13",
+  "version": "3.0.14",
   "main": "index.js",
   "bin": {
     "buzz": "./bin/buzz.js"
   },
   "scripts": {
-    "start": "babel src --out-dir lib -w -D --ignore \"src/source/**/*\"",
-    "build": "rm -rf lib && babel src --out-dir lib  -D --ignore \"src/source/**/*\" --minified"
+    "dev": "babel src --out-dir lib -w -D --ignore \"src/source/**/*\",\"src/internal/boilerplate\"",
+    "build": "rm -rf lib && babel src --out-dir lib  -D --ignore \"src/source/**/*\",\"src/internal/boilerplate\" --minified"
   },
   "babel": {
     "presets": [
@@ -70,7 +70,7 @@
     "vue-template-compiler": "^2.5.17",
     "vuex": "^3.0.1",
     "webpack": "^4.25.0",
-    "webpack-dev-server": "^3.1.10",
+    "webpack-dev-server": ">=3.1.11",
     "yargs": "^12.0.2"
   }
 }

@@ -1,12 +1,14 @@
-import log from "../utils/log";
 import { spinner } from "../utils/log";
-import { initConfig, initProject } from "../utils/init";
+import { getConfig, generate } from "../internal/generator";
 
 export const command = "init";
-export const desc = "-- init project";
+export const desc = "-- 初始化项目模版";
 export const handler = async argv => {
-  //目录初始化
-  await spinner("项目创建完成", async spinner => {
-    await initProject(spinner, argv.y);
+  // 获取数据
+  const inputConfig = await getConfig();
+
+  // 初始化项目
+  await spinner("项目初始化...", async spinner => {
+    await generate(spinner, inputConfig);
   });
 };

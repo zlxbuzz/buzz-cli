@@ -8,7 +8,7 @@ export default opt => {
           browsers: ["last 20 versions", "IE 9", "iOS >= 8"]
         })
       ].concat(
-        opt.mobile.viewport
+        opt.mobile && opt.mobile.viewport
           ? postcssP2v({
               viewportWidth: 750
             })

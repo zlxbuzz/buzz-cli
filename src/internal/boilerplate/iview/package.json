@@ -1,0 +1,13 @@
+{
+  "name": "<%= name %>",
+  "version": "<%= version %>",
+  "scripts": {
+    "start": "buzz dev",
+    "build": "buzz build"
+  },
+  "dependencies": {
+    "iview": "~3.2.0"
+  },
+  "author": "<%= author %>",
+  "license": "MIT"
+}
