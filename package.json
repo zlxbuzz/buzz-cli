@@ -1,6 +1,6 @@
 {
   "name": "buzz-cli",
-  "version": "3.0.14",
+  "version": "4.0.3",
   "main": "index.js",
   "bin": {
     "buzz": "./bin/buzz.js"

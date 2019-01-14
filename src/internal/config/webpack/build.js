@@ -13,10 +13,10 @@ export const getConfig = opt => {
   const webpackConfig = {
     mode: opt.mode,
     devtool: false,
-    entry: opt.entry,
+    entry: config.entry(opt),
     output: config.output(opt),
     externals: opt.externals,
-    resolve: config.resolve,
+    resolve: config.resolve(opt),
     resolveLoader: config.resolveLoader,
     optimization: {
       minimizer: [

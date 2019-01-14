@@ -1,14 +1,19 @@
 import * as config from "./common";
 import webpack from "webpack";
+import path from "path";
+
+const appDir = file => {
+  return path.resolve(process.cwd(), file || "");
+};
 
 export const getConfig = opt => {
   const webpackConfig = {
     mode: opt.mode,
     devtool: "source-map",
-    entry: opt.entry,
+    entry: config.entry(opt),
     output: config.output(opt),
     externals: opt.externals,
-    resolve: config.resolve,
+    resolve: config.resolve(opt),
     resolveLoader: config.resolveLoader,
     optimization: {
       minimizer: [],

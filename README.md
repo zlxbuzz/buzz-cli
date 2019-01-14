@@ -10,9 +10,9 @@ npm i buzz-cli -g
 # 初始化项目
 mkdir demo && cd demo && buzz init
 # 开发
-npm start
+buzz dev
 # 构建
-npm build
+buzz build
 ```
 
 ## 配置

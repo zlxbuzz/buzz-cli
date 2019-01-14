@@ -4,10 +4,11 @@ import log from "./log";
 export const getUserConfig = () => {
   let fileConfig;
   const configPath = path.resolve(process.cwd(), "buzz.config.js");
+  const defaultConfig = require(path.resolve(__dirname, "..", "internal", "config", "buzz"));
   if (fs.existsSync(configPath)) {
-    fileConfig = require(configPath);
+    fileConfig = Object.assign(defaultConfig, require(configPath));
   } else {
-    fileConfig = require(path.resolve(__dirname, "..", "internal", "config", "buzz"));
+    fileConfig = defaultConfig;
   }
   return Object.assign({}, fileConfig);
 };

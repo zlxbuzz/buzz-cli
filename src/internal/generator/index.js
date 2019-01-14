@@ -41,6 +41,9 @@ const writeDir = async (spinner, template, { name, version, author }) => {
   await fse.copy(source, dest);
   spinnerLoading(spinner, `创建源码目录: ${chalk.grey.bold(dest)}`);
   await write(`${template}/package.json`, "package.json", { name, version, author }, spinner);
+  if (await fse.pathExists(path.resolve(__dirname, "../boilerplate", template, "buzz.config.js"))) {
+    await write(`${template}/buzz.config.js`, "buzz.config.js", { name, version, author }, spinner);
+  }
 };
 
 export const getConfig = () => {
@@ -50,12 +53,8 @@ export const getConfig = () => {
       value: "iview"
     },
     {
-      name: "多页模板",
+      name: "基于 Vue2 的多页项目",
       value: "multiple"
-    },
-    {
-      name: "h5模板",
-      value: "h5"
     }
   ];
   const q = [

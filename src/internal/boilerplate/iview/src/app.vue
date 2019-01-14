@@ -1,13 +1,17 @@
 <template>
-  <div><router-view></router-view></div>
+  <div>
+    <hello></hello>
+    <router-view></router-view>
+  </div>
 </template>
 <script>
+import Hello from "@/components/hello";
 export default {
   data() {
     return {};
   },
-  mounted() {},
-  beforeDestroy() {},
-  methods: {}
+  components: {
+    Hello
+  }
 };
 </script>

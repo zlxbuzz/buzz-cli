@@ -1,11 +1,8 @@
 module.exports = {
   entryPath: "./src/index.js", //入口
-
   outputDir: "dist", //输出目录
-
   assetsDir: "assets", //静态资源目录
   indexName: "index.html", //html名称
-
   indexPath: "index.html", //入口html
   publicPath: "/", //公共public
   alias: {}, //别名
@@ -26,7 +23,6 @@ module.exports = {
   //构建配置
   build: {
     env: {}, //环境变量
-
     cleanPath: [] //clean配置
   }
 };

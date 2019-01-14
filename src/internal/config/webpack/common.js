@@ -14,12 +14,32 @@ const appDir = file => {
 const cliDir = file => {
   return path.resolve(__dirname, "../../../../", file || "");
 };
-export const resolve = {
-  modules: [appDir("node_modules"), cliDir("node_modules")],
-  extensions: ["*", ".js", ".vue", ".json"],
-  alias: {
-    vue$: "vue/dist/vue.esm.js"
+
+export const entry = opt => {
+  let entrys = {};
+  if (opt.pages) {
+    const pages = Object.keys(opt.pages);
+    pages.forEach(name => {
+      entrys[name] = appDir(opt.pages[name].entry);
+    });
+  } else {
+    entrys = appDir(opt.entryPath);
   }
+  return entrys;
+};
+
+export const resolve = opt => {
+  return {
+    modules: [appDir("node_modules"), cliDir("node_modules")],
+    extensions: ["*", ".js", ".vue", ".json"],
+    alias: Object.assign(
+      {
+        "@": appDir("src"),
+        vue$: "vue/dist/vue.esm.js"
+      },
+      opt.alias
+    )
+  };
 };
 export const resolveLoader = {
   modules: [appDir("node_modules"), cliDir("node_modules")]
@@ -129,22 +149,54 @@ export const rules = opt => {
         }
       ]
     }
-  ];
+  ].concat(
+    opt.lint
+      ? [
+          {
+            enforce: "pre",
+            test: /\.(js|vue)$/,
+            exclude: /node_modules/,
+            use: {
+              loader: "eslint-loader"
+            }
+          }
+        ]
+      : []
+  );
 };
 
 export const plugins = opt => {
   const files = getFiles(opt.mode, opt.assetsDir);
+  let html = [];
+  if (opt.pages) {
+    for (const name of Object.keys(opt.pages)) {
+      html.push(
+        new HtmlWebpackPlugin({
+          filename: `${name}/${opt.indexName}`,
+          chunks: ["vendors", "common", name].concat(
+            opt.mode === "development" ? [] : [`runtime~${name}`]
+          ),
+          template: fse.existsSync(appDir(opt.indexPath))
+            ? appDir(opt.indexPath)
+            : cliDir("lib/source/index.html")
+        })
+      );
+    }
+  } else {
+    html.push(
+      new HtmlWebpackPlugin({
+        ...opt.htmlOptions,
+        filename: opt.indexName,
+        template: fse.existsSync(appDir(opt.indexPath))
+          ? appDir(opt.indexPath)
+          : cliDir("lib/source/index.html")
+      })
+    );
+  }
   return [
     new MiniCssExtractPlugin({
       filename: files.css
     }),
-    new HtmlWebpackPlugin({
-      ...opt.htmlOptions,
-      filename: opt.indexName,
-      template: fse.existsSync(appDir(opt.indexPath))
-        ? appDir(opt.indexPath)
-        : cliDir("lib/source/index.html")
-    }),
     new VueLoaderPlugin() //将其他规则应用到vue
-  ];
+  ].concat(html);
 };
