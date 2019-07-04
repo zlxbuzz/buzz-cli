@@ -1,0 +1,13 @@
+{
+  "name": "<%= name %>",
+  "version": "<%= version %>",
+  "scripts": {
+    "start": "buzz dev",
+    "build": "buzz build"
+  },
+  "dependencies": {
+    "normalize.css": "^6.0.0"
+  },
+  "author": "<%= author %>",
+  "license": "MIT"
+}

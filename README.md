@@ -7,12 +7,41 @@
 ```bash
 # 全局安装(也可以局部安装)
 npm i buzz-cli -g
+```
+
 # 初始化项目
+
+```bash
 mkdir demo && cd demo && buzz init
+
+```
+
 # 开发
+
+```bash
 buzz dev
+
+```
+
 # 构建
+
+```bash
+
 buzz build
+
+```
+
+# 更新项目的常用配置文件
+
+```bash
+# .editorconfig
+# .eslintrc.js
+# .gitignore
+# .browserslistrc
+# .prettierrc
+
+buzz config
+
 ```
 
 ## 配置

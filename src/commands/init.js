@@ -1,5 +1,5 @@
-import { spinner } from "../utils/log";
 import { getConfig, generate } from "../internal/generator";
+import ora from "ora";
 
 export const command = "init";
 export const desc = "-- 初始化项目模版";
@@ -8,7 +8,7 @@ export const handler = async argv => {
   const inputConfig = await getConfig();
 
   // 初始化项目
-  await spinner("项目初始化...", async spinner => {
-    await generate(spinner, inputConfig);
-  });
+  const spinner = ora({ color: "green", text: "初始化..." }).start();
+  await generate(inputConfig);
+  spinner.succeed("初始化完成");
 };
