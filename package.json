@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "babel src --out-dir lib -w -D --ignore \"src/source/**/*\",\"src/internal/boilerplate\"",
-    "build": "rm -rf lib && babel src --out-dir lib  -D --ignore \"src/source/**/*\",\"src/internal/boilerplate\" --minified"
+    "build": "rm -rf lib && babel src --out-dir lib  -D --ignore \"src/source/**/*\",\"src/internal/boilerplate\" --minified && npm version patch"
   },
   "babel": {
     "presets": [
