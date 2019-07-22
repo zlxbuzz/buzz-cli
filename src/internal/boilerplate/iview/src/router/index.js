@@ -16,7 +16,7 @@ function importAll(r) {
   });
 }
 
-importAll(require.context("../views", false, /\.vue$/));
+importAll(require.context("../views", true, /\.vue$/));
 const router = new VueRouter({ routes: routes });
 
 export default router;

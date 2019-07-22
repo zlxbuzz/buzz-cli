@@ -52,8 +52,10 @@ export const getConfig = opt => {
         const joinedHash = hash(Array.from(chunk.modulesIterable, m => m.id).join("_"));
         return `chunk-` + joinedHash;
       }),
-      new webpack.DefinePlugin(opt.build.env)
-    ].concat(config.plugins(opt))
+      opt.dev.env ? new webpack.DefinePlugin(opt.dev.env) : ""
+    ]
+      .concat(config.plugins(opt))
+      .filter(v => v)
   };
   return webpackConfig;
 };

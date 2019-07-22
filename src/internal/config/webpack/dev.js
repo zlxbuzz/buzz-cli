@@ -27,8 +27,10 @@ export const getConfig = opt => {
     },
     plugins: [
       new webpack.HotModuleReplacementPlugin(),
-      new webpack.DefinePlugin(opt.dev.env)
-    ].concat(config.plugins(opt))
+      opt.dev.env ? new webpack.DefinePlugin(opt.dev.env) : ""
+    ]
+      .concat(config.plugins(opt))
+      .filter(v => v)
   };
   return webpackConfig;
 };
