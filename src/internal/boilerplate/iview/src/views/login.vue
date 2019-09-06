@@ -19,7 +19,7 @@
             placeholder="Password"
             @on-enter="handleSubmit('formLogin')"
           >
-            <Icon type="ios-locked-outline" slot="prepend"></Icon>
+            <Icon type="ios-lock-outline" slot="prepend"></Icon>
           </Input>
         </Form-item>
         <Form-item>
