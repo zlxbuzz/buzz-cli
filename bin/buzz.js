@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 
-console.log("Welcome to buzz cli tool");
-
 const { join } = require("path");
 const { version } = require("../package.json");
+
+const title = `\n===================== buzz  ${version} ====================\n`;
+
 require("yargs")
   .version(version)
   .usage("$0 <cmd>")

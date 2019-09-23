@@ -1,8 +1,8 @@
-import { spinner } from "../utils/log";
-import chalk from "chalk";
-
-import { getUserConfig } from "../utils/extra";
-import dev from "../internal/builder/dev";
+// import { spinner } from "../utils/log";
+// import chalk from "chalk";
+//
+// import { getUserConfig } from "../utils/extra";
+// import dev from "../internal/builder/dev";
 
 export const command = "dev";
 export const desc = "-- 开发";

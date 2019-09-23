@@ -1,5 +1,5 @@
-import { getConfig, generate } from "../internal/generator";
-import ora from "ora";
+// import { getConfig, generate } from "../internal/generator";
+// import ora from "ora";
 
 export const command = "init";
 export const desc = "-- 初始化项目模版";

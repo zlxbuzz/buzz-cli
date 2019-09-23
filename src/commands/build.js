@@ -1,8 +1,8 @@
-import { spinner } from "../utils/log";
-
-import { getUserConfig } from "../utils/extra";
-import build from "../internal/builder/build";
-
+// import { spinner } from "../utils/log";
+//
+// import { getUserConfig } from "../utils/extra";
+// import build from "../internal/builder/build";
+//
 export const command = "build";
 export const desc = "-- build";
 export const handler = async () => {
