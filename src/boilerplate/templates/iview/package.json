@@ -1,0 +1,14 @@
+{
+  "name": "buzz-iview",
+  "version": "0.0.1",
+  "scripts": {
+    "start": "buzz dev",
+    "build": "buzz build"
+  },
+  "dependencies": {
+    "normalize.css": "^6.0.0",
+    "iview": "~3.2.0"
+  },
+  "author": "zlxbuzz",
+  "license": "MIT"
+}

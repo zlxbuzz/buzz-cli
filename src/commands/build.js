@@ -1,15 +1,11 @@
-// import { spinner } from "../utils/log";
-//
-// import { getUserConfig } from "../utils/extra";
-// import build from "../internal/builder/build";
-//
+import Builder from "../internal/builder";
+import errorHandler from "../utils/errorHandler";
+
 export const command = "build";
-export const desc = "-- build";
+export const aliases = ["b"];
+export const desc = "构建应用";
 export const handler = async () => {
-  // 获取配置信息
-  const opt = Object.assign(getUserConfig(), { mode: "production" });
-  // 启动服务
-  await spinner("webpack打包...", async () => {
-    await build(opt);
-  });
+  await Builder()
+    .run()
+    .catch(errorHandler);
 };
