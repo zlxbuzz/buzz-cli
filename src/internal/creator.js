@@ -3,8 +3,10 @@ import path from "path";
 import logger from "../utils/logger";
 import inquirer from "inquirer";
 
+// 配置链接
 const configsPath = path.resolve(__dirname, "..", "boilerplate", "configs");
-class Creater {
+
+class Creator {
   constructor(opt) {
     this.opt = Object.assign({}, opt);
     this.opt.outDir = path.resolve(process.cwd(), this.opt.dir);
@@ -20,8 +22,8 @@ class Creater {
   async prompts() {
     const templateChoices = [
       {
-        name: "基本页面",
-        value: "multiple"
+        name: "基于 Vue2 的 web 项目",
+        value: "default"
       },
       {
         name: "基于 Vue2 + iView3 的 web 项目",
@@ -44,8 +46,8 @@ class Creater {
     await this.generatorConfig();
   }
   async createApp() {
-    const src = path.resolve(__dirname, "..", "boilerplate", "templates", this.opt.template, "src");
-    const targetSrc = path.resolve(this.opt.outDir, "src");
+    const src = path.resolve(__dirname, "..", "boilerplate", "templates", this.opt.template);
+    const targetSrc = path.resolve(this.opt.outDir);
     await fse.copy(src, targetSrc);
   }
   async generatorConfig() {
@@ -65,4 +67,4 @@ async function write(source, target) {
   logger.create(target);
 }
 
-export default opt => new Creater(opt);
+export default opt => new Creator(opt);

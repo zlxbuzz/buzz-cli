@@ -1,6 +1,6 @@
 {
-  "name": "<%= name %>",
-  "version": "<%= version %>",
+  "name": "buzz-vue",
+  "version": "0.0.1",
   "scripts": {
     "start": "buzz dev",
     "build": "buzz build"
@@ -8,6 +8,6 @@
   "dependencies": {
     "normalize.css": "^6.0.0"
   },
-  "author": "<%= author %>",
+  "author": "zlxbuzz",
   "license": "MIT"
 }

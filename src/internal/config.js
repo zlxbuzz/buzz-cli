@@ -1,4 +1,5 @@
 export default () => {
+  // webpack相关的配置
   const config = {
     entryPath: "./src/index.js", //入口
     outputDir: "dist", //输出目录
@@ -22,5 +23,14 @@ export default () => {
       cleanPath: [] //clean配置
     }
   };
-  return config;
+
+  // 构建过程中的钩子,包含beforePack和afterPack
+  const hooks = {
+    beforePack: [],
+    afterPack: []
+  };
+  return {
+    config,
+    hooks
+  };
 };

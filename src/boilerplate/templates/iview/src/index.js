@@ -9,6 +9,8 @@ import "@/assets/index.less";
 Vue.use(VueRouter);
 Vue.use(iView);
 
+Vue.config.productionTip = false;
+
 new Vue({
   el: "app",
   router,
