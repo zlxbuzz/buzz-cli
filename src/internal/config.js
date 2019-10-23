@@ -1,41 +1,4 @@
-# buzz-cli vue+webpack4 的脚手架工具
-
-> 基于 Vue + Webpack 工具
-
-## 安装
-
-```bash
-# 全局安装(也可以局部安装)
-npm i buzz-cli -g
-```
-
-# 初始化项目
-
-```bash
-buzz new demo
-
-```
-
-# 开发
-
-```bash
-buzz serve
-
-```
-
-# 构建
-
-```bash
-
-buzz build
-
-```
-
-## 配置
-
-```bash
-# 默认配置，可以通过buzz.config.js来覆盖
-module.exports = {
+export default () => {
   // webpack相关的配置的默认值
   const config = {
     // 项目入口
@@ -61,4 +24,3 @@ module.exports = {
     hooks
   };
 };
-```

@@ -28,6 +28,9 @@ class Logger {
   success(...args) {
     this.log(chalk.green("success"), ...args);
   }
+  create(...args) {
+    this.log(chalk.green("CREATED"), ...args);
+  }
 
   done(...args) {
     this.log(
